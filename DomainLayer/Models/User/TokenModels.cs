@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Models
 {
-   
-    public class TokenResponseModel
+
+    public class TokenResponseModel : ITokenResponseModel
     {
-        [JsonProperty("acces_token")]
+        [JsonProperty("access_token")]
         public string AccessToken { get; set; }
 
         [JsonProperty("refresh_token")]
@@ -20,7 +20,7 @@ namespace DomainLayer.Models
         public string TokenType { get; set; }
     }
 
-    public class TokenRequestModel
+    public class TokenRequestModel : ITokenRequestModel
     {
 
         [JsonProperty("refresh_token")]

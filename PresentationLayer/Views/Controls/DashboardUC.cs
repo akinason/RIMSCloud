@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace PresentationLayer.Views.Controls
 {
-    public partial class DashboardUC : UserControl
+    public partial class DashboardUC : UserControl, IDashboardUC
     {
         public DashboardUC()
         {
@@ -22,9 +22,9 @@ namespace PresentationLayer.Views.Controls
             this.recentProjectsLabel.Text = ConfigurationManager.AppSettings["baseURL"];
         }
 
-       public void LoadRecentProjects()
+        public void LoadRecentProjects()
         {
-            for (int i = 1; i <3; i++)
+            for (int i = 1; i < 3; i++)
             {
                 RecentProjectUC rpc = new RecentProjectUC();
                 rpc.ProjectName = "Test Project No: " + i;

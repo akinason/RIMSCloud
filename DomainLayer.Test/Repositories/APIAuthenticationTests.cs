@@ -24,20 +24,15 @@ namespace DomainLayer.Tests.Repositories
         {
             _testOutputHelper = testOutputHelper;
             _authRepository = new AuthRepository();
-            string path = @"d:/testss.txt";
-            File.WriteAllText(path, "sime");
         }
 
         [Fact]
-        public void ShouldLoginSuccessfully()
+        public async void ShouldLoginSuccessfully()
         {
-            //LoginModel model = new LoginModel();
-            //model.Username = "admin";
-            //model.Password = "admin";
-            //bool response = await _authRepository.Login(model);
-            bool response = true;
-            string path = @"d:\tests.txt";
-            File.WriteAllText(path, response.ToString());
+            ILoginModel model = new LoginModel();
+            model.Username = "admin";
+            model.Password = "admin";
+            bool response = await _authRepository.Login(model);
             Assert.True(response);
             _testOutputHelper.WriteLine("The login was successful.");
         }

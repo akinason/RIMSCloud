@@ -8,6 +8,6 @@ namespace CommonLayer
 {
     public class DataEventArgs : EventArgs
     {
-        Dictionary<string, string> Data { get; set; }
+        public Dictionary<string, string> data { get; set; }
     }
 }

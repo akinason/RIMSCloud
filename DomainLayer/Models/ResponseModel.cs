@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,13 @@ namespace DomainLayer.Models
 {
     public class ResponseModel : IResponseModel
     {
-        [JsonPropertyName("success")]
+        [JsonProperty("success")]
         public bool Success { get; set; }
 
-        [JsonPropertyName("message")]
+        [JsonProperty("message")]
         public string Message { get; set; }
 
-        [JsonPropertyName("data")]
+        [JsonProperty("data")]
         public object Data { get; set; }
     }
 }

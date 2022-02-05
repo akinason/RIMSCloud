@@ -101,6 +101,7 @@
             // 
             this.passwordTextBox.Location = new System.Drawing.Point(26, 295);
             this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(300, 40);
             this.passwordTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
             this.passwordTextBox.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -114,7 +115,7 @@
             this.passwordTextBox.StateCommon.Content.Color1 = System.Drawing.Color.Gray;
             this.passwordTextBox.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.passwordTextBox.TabIndex = 3;
+            this.passwordTextBox.TabIndex = 2;
             this.passwordTextBox.Text = "Password";
             // 
             // signInButton
@@ -173,7 +174,7 @@
             this.signInButton.StateTracking.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
             this.signInButton.StateTracking.Border.Rounding = 20;
             this.signInButton.StateTracking.Border.Width = 1;
-            this.signInButton.TabIndex = 4;
+            this.signInButton.TabIndex = 3;
             this.signInButton.Values.Text = "SIGN IN";
             this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
             // 
@@ -223,6 +224,7 @@
             this.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.Load += new System.EventHandler(this.LoginView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

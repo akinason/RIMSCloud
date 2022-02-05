@@ -3,13 +3,14 @@ using DomainLayer.Services;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace DomainLayer.Repositories
 {
     public class AuthRepository
     {
-        public async Task<Boolean> Login (LoginModel loginModel)
+        public async Task<bool> Login (ILoginModel loginModel)
         {
             ApiClient client = new ApiClient();
             RestRequest request = new RestRequest("/auth/token", Method.Post).AddBody(loginModel);

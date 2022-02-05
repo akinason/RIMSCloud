@@ -14,7 +14,7 @@ using PresentationLayer.Views.Controls;
 
 namespace PresentationLayer.Views
 {
-    public partial class DashboardView : KryptonForm
+    public partial class DashboardView : KryptonForm, IDashboardView
     {
         static DashboardView _dashboardView;
 
@@ -52,13 +52,13 @@ namespace PresentationLayer.Views
 
         private void CollapseMenu()
         {
-           if(this.menuPanel.Width > 200)
+            if (this.menuPanel.Width > 200)
             { // Collapse
                 this.menuPanel.Width = 100;
                 this.collapseMenuButton.Visible = false;
                 this.expandMenuButton.Visible = true;
 
-                foreach(Button menuButton in this.menuPanel.Controls.OfType<Button>())
+                foreach (Button menuButton in this.menuPanel.Controls.OfType<Button>())
                 {
                     menuButton.Text = "";
                     menuButton.ImageAlign = ContentAlignment.MiddleCenter;
@@ -69,7 +69,7 @@ namespace PresentationLayer.Views
 
         private void expandMenu()
         {
-            if(this.menuPanel.Width <= 100)
+            if (this.menuPanel.Width <= 100)
             {
                 this.menuPanel.Width = 225;
                 this.collapseMenuButton.Visible = true;
@@ -78,7 +78,7 @@ namespace PresentationLayer.Views
                 {
                     menuButton.Text = "   " + menuButton.Tag.ToString();
                     menuButton.ImageAlign = ContentAlignment.MiddleLeft;
-                    menuButton.Padding = new Padding(10,0,0,0);
+                    menuButton.Padding = new Padding(10, 0, 0, 0);
                 }
             }
         }
@@ -102,7 +102,7 @@ namespace PresentationLayer.Views
 
         private void LoadContentUserControl(object sender, UserControl userControl)
         {
-            foreach(Control ctl in contentPanel.Controls)
+            foreach (Control ctl in contentPanel.Controls)
             {
                 contentPanel.Controls.Remove(ctl);
             }
@@ -124,7 +124,7 @@ namespace PresentationLayer.Views
 
         private void documentsButton_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void projectMgtButton_Click(object sender, EventArgs e)

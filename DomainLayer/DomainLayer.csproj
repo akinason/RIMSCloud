@@ -95,20 +95,44 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Project\IDataset.cs" />
+    <Compile Include="Models\Project\IMemberModel.cs" />
+    <Compile Include="Models\Project\IProjectModel.cs" />
+    <Compile Include="Models\User\ILoginModel.cs" />
     <Compile Include="Models\IResponseModel.cs" />
-    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\User\IRoleModel.cs" />
+    <Compile Include="Models\User\ITokenRequestModel.cs" />
+    <Compile Include="Models\User\ITokenResponseModel.cs" />
+    <Compile Include="Models\User\IUserModel.cs" />
+    <Compile Include="Models\User\LoginModel.cs" />
+    <Compile Include="Models\User\PermissionModels.cs" />
+    <Compile Include="Models\Project\ProjectModels.cs" />
     <Compile Include="Models\ResponseModel.cs" />
-    <Compile Include="Models\TokenModels.cs" />
+    <Compile Include="Models\User\TokenModels.cs" />
+    <Compile Include="Models\User\UserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\AuthRepository.cs" />
+    <Compile Include="Repositories\ProjectRepository.cs" />
     <Compile Include="Services\ApiClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Document\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

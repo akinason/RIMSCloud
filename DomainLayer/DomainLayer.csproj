@@ -95,9 +95,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Dashboard\DashboardModels.cs" />
+    <Compile Include="Models\Dashboard\IDashboardModel.cs" />
+    <Compile Include="Models\Dashboard\IDashboardResponseModel.cs" />
+    <Compile Include="Models\Dashboard\IGraphDataModel.cs" />
     <Compile Include="Models\Project\IDataset.cs" />
     <Compile Include="Models\Project\IMemberModel.cs" />
     <Compile Include="Models\Project\IProjectModel.cs" />
+    <Compile Include="Models\Dashboard\IProjectStatusModel.cs" />
     <Compile Include="Models\User\ILoginModel.cs" />
     <Compile Include="Models\IResponseModel.cs" />
     <Compile Include="Models\User\IRoleModel.cs" />

@@ -18,7 +18,7 @@ namespace DomainLayer.Repositories
 
         public async Task<(bool, ProjectModel)> GetProjectById(int id)
         {
-            RestRequest request = new RestRequest($"/projects/{id}", Method.Get);
+            RestRequest request = new RestRequest($"/v1/projects/{id}", Method.Get);
             var response = await _client.ExecuteAsync(request, Method.Get);
             if (response.IsSuccessful)
             {

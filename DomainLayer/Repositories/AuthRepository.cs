@@ -13,7 +13,7 @@ namespace DomainLayer.Repositories
         public async Task<bool> Login (ILoginModel loginModel)
         {
             ApiClient client = new ApiClient();
-            RestRequest request = new RestRequest("/auth/token", Method.Post).AddBody(loginModel);
+            RestRequest request = new RestRequest("/v1/auth/token", Method.Post).AddBody(loginModel);
 
             var response = await client.ExecuteAsync(request, Method.Post);
             if (response.IsSuccessful)

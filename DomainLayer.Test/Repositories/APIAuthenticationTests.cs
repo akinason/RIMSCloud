@@ -1,5 +1,6 @@
 ﻿using DomainLayer.Models;
 using DomainLayer.Repositories;
+using DomainLayer.Services;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -27,21 +28,61 @@ namespace DomainLayer.Tests.Repositories
         }
 
         [Fact]
-        public async void ShouldLoginSuccessfully()
+        public async Task TestShouldLoginSuccessfullyWithValidCrentials()
         {
             ILoginModel model = new LoginModel();
             model.Username = "admin";
             model.Password = "admin";
             bool response = await _authRepository.Login(model);
             Assert.True(response);
-            _testOutputHelper.WriteLine("The login was successful.");
+            _testOutputHelper.WriteLine("The valid login was successful.");
         }
 
         [Fact]
-        public void ShouldGetNewRefreshTokenSuccessfully()
+        public async Task TestShouldFailLoginWithInvalidCredentials()
         {
-            int response = 1;
-            Assert.Equal<int>(1, response);
+            ILoginModel model = new LoginModel();
+            model.Username = "testad";
+            model.Password = "testdd";
+            bool response = await _authRepository.Login(model);
+            Assert.False(response);
+            _testOutputHelper.WriteLine("The failed login was successful.");
+        }
+
+        [Fact]
+        public async Task TestShouldSuccesfullyRefreshToken()
+        {
+            // Login so as to create valid credentials. 
+            ILoginModel loginModel = new LoginModel() { Password = "admin", Username = "admin" };
+            AuthRepository authRepository = new AuthRepository();
+            bool success = await authRepository.Login(loginModel);
+            Assert.True(success);
+
+            // Modify the Token so it becomes invalid.
+            ApiClient.Token = $"{ApiClient.Token}invalid";
+
+            ApiClient client = new ApiClient();
+            await client.GetNewTokenUsingRefreshToken();
+            Assert.DoesNotContain("invalid", ApiClient.Token);
+        }
+
+        [Fact]
+        public async Task TestShouldFailGettingNewTokenWithInvalidRefreshToken()
+        {
+            // Login so as to create valid credentials. 
+            ILoginModel loginModel = new LoginModel() { Password = "admin", Username = "admin" };
+            AuthRepository authRepository = new AuthRepository();
+            bool success = await authRepository.Login(loginModel);
+            Assert.True(success);
+
+            string token = ApiClient.Token;
+
+            ApiClient.RefreshToken = $"{ApiClient.RefreshToken}invalidate";
+            ApiClient client = new ApiClient();
+            await client.GetNewTokenUsingRefreshToken();
+            Assert.Equal(ApiClient.Token, token);
+            string rt = ApiClient.RefreshToken;
+            Assert.Contains(rt.Substring(rt.Length - "invalidate".Length), "invalidate");
         }
     }
 }

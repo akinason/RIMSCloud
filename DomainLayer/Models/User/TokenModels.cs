@@ -25,5 +25,6 @@ namespace DomainLayer.Models
 
         [JsonProperty("refresh_token")]
         public string RefreshToken { get; set; }
+        public string Ignore { get; set; } = "";
     }
 }

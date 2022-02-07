@@ -1,9 +1,8 @@
-﻿using DomainLayer.Models;
-using log4net.Repository.Hierarchy;
+﻿using CommonLayer;
+using DomainLayer.Models;
 using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators.OAuth2;
-using System;
 using System.Configuration;
 using System.IO;
 using System.Threading;
@@ -31,7 +30,8 @@ namespace DomainLayer.Services
                 // do something with failed response.
             }
          */
-        private static string baseUrl = ConfigurationManager.AppSettings["baseURL"];
+
+        private static string baseUrl = "https://api.rimscloud.co"; //ConfigurationManager.AppSettings.Get("baseURL");
         private static RestClient _client;
         public static string Token { get; set; }
         public static string RefreshToken { get; set; }
@@ -53,7 +53,7 @@ namespace DomainLayer.Services
             {
                 _client.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(Token, "bearer");
             }
-            
+
         }
 
         public async Task<RestResponse> ExecuteAsync(RestRequest request, Method httpMethod, CancellationToken cancellationToken = default(CancellationToken))
@@ -62,22 +62,24 @@ namespace DomainLayer.Services
 
             var response = await _client.ExecuteAsync(request, httpMethod, cancellationToken);
             
-            if (((int)response.StatusCode) == 401 && request.Resource != "/auth/token" && request.Resource != "/auth/refresh") // Get a refresh token
+            if (((int)response.StatusCode) == 401 && request.Resource != "/v1/auth/token" && request.Resource != "/v1/auth/refresh") // Get a refresh token
             {
-                this.GetNewTokenUsingRefreshToken();
+                await this.GetNewTokenUsingRefreshToken();
                 response = await _client.ExecuteAsync(request, httpMethod, cancellationToken); // Run the request again using new token credentails.
             }
             return (RestResponse)response;
         }
 
-        private async void GetNewTokenUsingRefreshToken()
+        public async Task GetNewTokenUsingRefreshToken()
         {
             if (RefreshToken == null) return;
 
             TokenRequestModel model = new TokenRequestModel();
             model.RefreshToken = RefreshToken;
-            RestRequest request = new RestRequest("/auth/refresh", Method.Post).AddBody(model);
+            var json = JsonConvert.SerializeObject(model);
+            RestRequest request = new RestRequest("/v1/auth/refresh", Method.Post).AddStringBody(json, DataFormat.Json);
             var response = await this.ExecuteAsync(request, Method.Post);
+
             if (response.IsSuccessful)
             {
                 var responseModel = JsonConvert.DeserializeObject<TokenResponseModel>(response.Content);
@@ -85,6 +87,7 @@ namespace DomainLayer.Services
                 RefreshToken = responseModel.RefreshToken;
                 this.SetupClient();
             }
+           
         }
     }
 
